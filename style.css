@@ -79,10 +79,14 @@ hr{
   background-color: gray;
 }
 
-#oat12i{
+#npcTim{
   float: right;
   font-weight: normal;
-  color: white;
+  text-decoration: none;
+}
+
+#npcTim:hover{
+  text-decoration: underline;
 }
 
 video{
