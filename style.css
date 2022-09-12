@@ -1,0 +1,97 @@
+@font-face{
+  font-family: 'Iosevka';
+  src: url(./iosevka-regular.ttf) format('truetype');
+}
+
+html{
+  background-color: black;
+  overflow-y: scroll;
+}
+
+body{
+  font-size: 19px;
+  font-family: 'Iosevka';
+  line-height: 75%;
+  margin-left: 30%;
+  margin-right: 30%;
+}
+
+@media (max-width: 1000px) {
+  body{
+    font-size: 38px;
+    margin-left: 10%;
+    margin-right: 10%;
+  }
+}
+
+a{
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+a:hover{
+  text-decoration: underline;
+}
+
+p{
+  color: white;
+  line-height: 150%;
+}
+
+#navbar{
+  color: #8e8e8e;
+  margin-top: 0px;
+  padding-top: 19px;
+}
+
+#navbarLink1{
+  color: #8e8e8e;
+  font-weight: normal;
+}
+
+#navbarLink2{
+  color: #a9a9a9;
+  font-weight: normal;
+}
+
+#navbarLink2:hover{
+  font-weight: normal;
+}
+
+#navbarLink1:hover{
+  font-weight: normal;
+}
+
+#title{
+  line-height: 75%;
+}
+
+#dummy{
+  visibility: hidden;
+  pointer-event: none;
+}
+
+hr{
+  height: 2px;
+  border-width: 0;
+  color: gray;
+  background-color: gray;
+}
+
+#oat12i{
+  float: right;
+  font-weight: normal;
+  color: white;
+}
+
+video{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#back{
+  display: block;
+  text-align: center;
+}
