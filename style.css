@@ -4,7 +4,7 @@
 }
 
 html{
-  background-color: black;
+  background-color: white;
   overflow-y: scroll;
 }
 
@@ -25,7 +25,7 @@ body{
 }
 
 a{
-  color: white;
+  color: black;
   text-decoration: none;
   font-weight: bold;
 }
@@ -35,23 +35,23 @@ a:hover{
 }
 
 p{
-  color: white;
+  color: black;
   line-height: 150%;
 }
 
 #navbar{
-  color: #8e8e8e;
+  color: #9a9a9a;
   margin-top: 0px;
   padding-top: 19px;
 }
 
 #navbarLink1{
-  color: #8e8e8e;
+  color: #9a9a9a;
   font-weight: normal;
 }
 
 #navbarLink2{
-  color: #a9a9a9;
+  color: #9a9a9a;
   font-weight: normal;
 }
 
