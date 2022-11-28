@@ -83,6 +83,7 @@ hr{
   float: right;
   font-weight: normal;
   text-decoration: none;
+  color: #9a9a9a;
 }
 
 #npcTim:hover{
@@ -93,6 +94,8 @@ video{
   display: block;
   margin-left: auto;
   margin-right: auto;
+  height: 80%;
+  width: 80%;
 }
 
 #back{
