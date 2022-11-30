@@ -4,7 +4,7 @@
 }
 
 html{
-  background-color: white;
+  background-color: black;
   overflow-y: scroll;
 }
 
@@ -25,7 +25,7 @@ body{
 }
 
 a{
-  color: black;
+  color: white;
   text-decoration: none;
   font-weight: bold;
 }
@@ -35,7 +35,6 @@ a:hover{
 }
 
 p{
-  color: black;
   line-height: 150%;
 }
 
