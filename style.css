@@ -4,7 +4,7 @@
 }
 
 html{
-  background-color: black;
+  background-color: white;
   overflow-y: scroll;
 }
 
@@ -25,7 +25,7 @@ body{
 }
 
 a{
-  color: white;
+  color: black;
   text-decoration: none;
   font-weight: bold;
 }
