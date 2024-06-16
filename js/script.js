@@ -1,4 +1,4 @@
-const text = 'npc tim'
+const text = 'NPC Tim'
 const typingSpeed = 500;
 let a = 0;
 
