@@ -1,4 +1,4 @@
-const text = 'tim'
+const text = 'Tim'
 const typingSpeed = 1000;
 let a = 0;
 
