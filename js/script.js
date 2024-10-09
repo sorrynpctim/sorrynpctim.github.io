@@ -1,5 +1,5 @@
-const text = 'Tim'
-const typingSpeed = 1000;
+const text = 'NPC Tim'
+const typingSpeed = 500;
 let a = 0;
 
 function type() {
