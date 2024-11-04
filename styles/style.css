@@ -17,20 +17,20 @@ body {
     justify-content: center;
     align-items: center;
     height: 100%;
-    margin: 0;
+    margin: 0 auto;
     padding: 0;
     font-family: 'Iosevka';
-    font-size: 18px;
+    font-size: 16;
     background-color: white;
     transform: translateY(-40px);
 }
 
 #centered, #whoami {
-    font-size: 18px;
+    font-size: 16;
 }
 
 div {
-    margin-bottom: 18px;
+    margin-bottom: 16px;
 }
 
 #links {
@@ -38,14 +38,38 @@ div {
 }
 
 a {
-    text-decoration: none;
-    color: #9a9a9a;
-    transition: color 0.25s ease;
+    color: inherit;               /* Default link color */
+    text-decoration: none;        /* Remove underline by default */
+    transition: color 0.5s;       /* Adjust duration as needed for a smooth fade */
 }
 
 a:hover {
-    text-decoration: none;
-    color: #1D9BF0; 
+    color: #1D9BF0;               /* Hover color */
+    text-decoration: none;        /* Ensure no underline on hover */
+}
+
+#favicon {
+    height: 100px;
+    width: 100px;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+#favicon, #coming_soon {
+    opacity: 0;                   /* Start hidden */
+    animation: fadeIn 3s forwards; /* Adjust duration as needed */
+}
+
+#links, #status {
+    opacity: 0;                /* Start hidden */
+    transition: opacity 1.5s;    /* Adjust duration as needed */
+}
+
+.fade-in {
+    opacity: 1 !important;                /* Fully visible when fade-in class is added */
 }
 
 /*  Zoomed in mobile version */
@@ -59,16 +83,21 @@ a:hover {
         margin: 0;
         padding: 0;
         font-family: 'Iosevka';
-        font-size: 36px;
+        font-size: 32px;
         background-color: white;
         transform: translateY(-40px);
     }
 
     #centered, #whoami {
-        font-size: 36px;
+        font-size: 32px;
     }
 
     div {
-        margin-bottom: 36px;
+        margin-bottom: 32px;
+    }
+
+    #favicon {
+        height: 200px;
+        width: 200px;
     }
 }
