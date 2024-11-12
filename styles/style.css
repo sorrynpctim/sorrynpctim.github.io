@@ -90,7 +90,7 @@ a:hover {
     left: 0;
     width: 100%;
     height: 100%;
-    animation: leftEyeMove 8s infinite;
+    animation: leftEyeMove 9s infinite;
 }
 
 #right_eyes {
@@ -99,7 +99,7 @@ a:hover {
     left: 0;
     width: 100%;
     height: 100%;
-    animation: rightEyeMove 7s infinite;
+    animation: rightEyeMove 10s infinite;
 }
 
 /* Positioning the character image */
