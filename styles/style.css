@@ -55,13 +55,17 @@ a:hover {
 }
 
 /* Fade-in applied to the character container */
-#characters-container, #coming_soon {
+#characters-container {
     height: 125px;
     width: 125px;
     opacity: 0;                   /* Start hidden */
     animation: fadeIn 3s forwards; /* Fade-in animation for the container */
     position: relative;           /* Position relative to enable absolute positioning for children */
     margin-bottom: 0px;
+}
+
+#coming_soon {
+    animation: fadeIn 3s forwards; /* Fade-in animation for the container */
 }
 
 /* Eye movement animations */
@@ -145,7 +149,7 @@ a:hover {
     }
 
     /* Fade-in applied to the character container */
-    #characters-container, #coming_soon {
+    #characters-container {
         height: 250px;
         width: 250px;
     }
