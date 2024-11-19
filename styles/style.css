@@ -68,6 +68,10 @@ a:hover {
     animation: fadeIn 3s forwards; /* Fade-in animation for the container */
 }
 
+span {
+    font-family: system-ui;
+}
+
 /* Eye movement animations */
 @keyframes leftEyeMove {
     0% { transform: translate(0, 0); }               /* Start at the original position */
