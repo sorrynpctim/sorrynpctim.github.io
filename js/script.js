@@ -4,7 +4,7 @@ let a = 0;
 
 function type() {
     if (a < text.length) {
-        document.getElementById('centered').innerHTML += text.charAt(a);
+        document.getElementById('centered').innerHTML = text.substring(0, a + 1); // Replace the content
         a++;
         setTimeout(type, typingSpeed);
     } else {
