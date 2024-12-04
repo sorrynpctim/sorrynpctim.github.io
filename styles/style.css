@@ -23,6 +23,7 @@ body {
     font-size: 16px;
     background-color: white;
     transform: translateY(-40px);
+    line-height: 20px;
 }
 
 #centered, #whoami {
@@ -142,6 +143,7 @@ span {
         font-size: 32px;
         background-color: white;
         transform: translateY(-40px);
+        line-height: 40px;
     }
 
     #centered, #whoami {
