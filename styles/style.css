@@ -73,25 +73,6 @@ span {
     font-family: system-ui;
 }
 
-/* Eye movement animations */
-@keyframes leftEyeMove {
-    0% { transform: translate(0, 0); }               /* Start at the original position */
-    20% { transform: translate(-0.5px, 0.3px); }     /* Look around top-left area */
-    40% { transform: translate(-0.3px, -0.5px); }    /* Look around bottom-left */
-    60% { transform: translate(0.3px, 0.5px); }      /* Look around center-left */
-    80% { transform: translate(0.7px, -0.3px); }     /* Move towards top-right */
-    100% { transform: translate(0, 0); }             /* Return to original position */
-}
-
-@keyframes rightEyeMove {
-    0% { transform: translate(0, 0); }               /* Start at the original position */
-    20% { transform: translate(0.5px, -0.3px); }     /* Look around top-right area */
-    40% { transform: translate(0.3px, 0.5px); }      /* Look around bottom-right */
-    60% { transform: translate(-0.3px, -0.5px); }    /* Look around center-right */
-    80% { transform: translate(-0.7px, 0.3px); }     /* Move towards top-left */
-    100% { transform: translate(0, 0); }             /* Return to original position */
-}
-
 /* Applying movement animations to each eye independently */
 #left_eyes {
     position: absolute;
@@ -99,7 +80,6 @@ span {
     left: 0;
     width: 100%;
     height: 100%;
-    animation: leftEyeMove 9s infinite;
 }
 
 #right_eyes {
@@ -108,7 +88,6 @@ span {
     left: 0;
     width: 100%;
     height: 100%;
-    animation: rightEyeMove 10s infinite;
 }
 
 /* Positioning the character image */
@@ -127,6 +106,10 @@ span {
 
 .fade-in {
     opacity: 1 !important;        /* Fully visible when fade-in class is added */
+}
+
+#left_eyes, #right_eyes {
+    transition: transform 0.2s ease-out; /* Smooth movement over 0.2 seconds */
 }
 
 /* Zoomed-in mobile version */
@@ -158,24 +141,5 @@ span {
     #characters-container {
         height: 250px;
         width: 250px;
-    }
-
-    /* Eye movement animations */
-    @keyframes leftEyeMove {
-        0% { transform: translate(0, 0); }               /* Start at the original position */
-        20% { transform: translate(-1px, 0.6px); }     /* Look around top-left area */
-        40% { transform: translate(-0.6px, -1px); }    /* Look around bottom-left */
-        60% { transform: translate(0.6px, 1px); }      /* Look around center-left */
-        80% { transform: translate(1.4px, -0.6px); }     /* Move towards top-right */
-        100% { transform: translate(0, 0); }             /* Return to original position */
-    }
-
-    @keyframes rightEyeMove {
-        0% { transform: translate(0, 0); }               /* Start at the original position */
-        20% { transform: translate(1px, -0.6px); }     /* Look around top-right area */
-        40% { transform: translate(0.6px, 1px); }      /* Look around bottom-right */
-        60% { transform: translate(-0.6px, -1px); }    /* Look around center-right */
-        80% { transform: translate(-1.4px, 0.6px); }     /* Move towards top-left */
-        100% { transform: translate(0, 0); }             /* Return to original position */
     }
 }
