@@ -65,7 +65,8 @@ document.addEventListener('mousemove', (event) => {
 // List of MP3s for each link
 const mp3s = {
     xLink: ['audio/x1.mp3', 'audio/x2.mp3', 'audio/x3.mp3'],
-    projectsLink: ['audio/projects1.mp3', 'audio/projects2.mp3', 'audio/projects3.mp3']
+    projectsLink: ['audio/projects1.mp3', 'audio/projects2.mp3', 'audio/projects3.mp3'],
+    soundcloudLink: ['audio/soundcloud1', 'audio/soundcloud2', 'audio/soundcloud3']
 };
 
 // Function to handle link clicks
@@ -90,6 +91,7 @@ function handleLinkClick(event, linkType) {
 document.addEventListener('DOMContentLoaded', () => {
     const xLink = document.querySelector('a[href="https://x.com/0xnpctim"]');
     const projectsLink = document.querySelector('a[href="projects.html"]');
+    const soundcloudLink = document.querySelector('a[href="https://soundcloud.com/0xnpctim"]');
     
     if (xLink) {
         xLink.addEventListener('click', (event) => handleLinkClick(event, 'xLink'));
@@ -97,6 +99,10 @@ document.addEventListener('DOMContentLoaded', () => {
     
     if (projectsLink) {
         projectsLink.addEventListener('click', (event) => handleLinkClick(event, 'projectsLink'));
+    }
+
+    if (soundcloudLink) {
+        projectsLink.addEventListener('click', (event) => handleLinkClick(event, 'soundcloudLink'));
     }
 });
 
