@@ -45,7 +45,7 @@ a {
 }
 
 a:hover {
-    color: #FFB6C1;               /* Hover color */
+    color: #D7D7D7;               /* Hover color */
     text-decoration: none;        /* Ensure no underline on hover */
 }
 
