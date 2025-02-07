@@ -1,4 +1,4 @@
-const text = 'Hi, my name is NPC Tim.';
+const text = 'Hi, my name is Tim.';
 const typingSpeed = 75;
 let a = 0;
 
@@ -65,7 +65,7 @@ document.addEventListener('mousemove', (event) => {
 // List of MP3s for each link
 const mp3s = {
     xLink: ['audio/x1.mp3', 'audio/x2.mp3', 'audio/x3.mp3'],
-    projectsLink: ['audio/projects1.mp3', 'audio/projects2.mp3', 'audio/projects3.mp3']
+    highlightsLink: ['audio/highlights1.mp3', 'audio/highlights2.mp3', 'audio/highlights3.mp3']
 };
 
 // Function to handle link clicks
@@ -89,14 +89,14 @@ function handleLinkClick(event, linkType) {
 // Attach event listeners to the links
 document.addEventListener('DOMContentLoaded', () => {
     const xLink = document.querySelector('a[href="https://x.com/0xnpctim"]');
-    const projectsLink = document.querySelector('a[href="projects.html"]');
+    const highlightsLink = document.querySelector('a[href="highlights.html"]');
     
     if (xLink) {
         xLink.addEventListener('click', (event) => handleLinkClick(event, 'xLink'));
     }
     
-    if (projectsLink) {
-        projectsLink.addEventListener('click', (event) => handleLinkClick(event, 'projectsLink'));
+    if (highlightsLink) {
+        highlightsLink.addEventListener('click', (event) => handleLinkClick(event, 'highlightsLink'));
     }
 });
 
