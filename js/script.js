@@ -1,4 +1,4 @@
-const text = 'Hi, my name is NPC Tim.';
+const text = 'Hi, my name is NPC Tim';
 const typingSpeed = 75;
 let a = 0;
 
