@@ -65,7 +65,8 @@ a:hover {
     margin-bottom: 0px;
 }
 
-#coming_soon {
+#highlight_links {
+    color: #9a9a9a;
     animation: fadeIn 3s forwards; /* Fade-in animation for the container */
 }
 
