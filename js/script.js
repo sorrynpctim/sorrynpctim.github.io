@@ -88,7 +88,7 @@ function handleLinkClick(event, linkType) {
 
 // Attach event listeners to the links
 document.addEventListener('DOMContentLoaded', () => {
-    const xLink = document.querySelector('a[href="https://x.com/0xnpctim"]');
+    const xLink = document.querySelector('a[href="https://x.com/timetimiri"]');
     const highlightsLink = document.querySelector('a[href="highlights.html"]');
     
     if (xLink) {
