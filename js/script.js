@@ -1,4 +1,4 @@
-const text = 'Hi, my name is Tim.';
+const text = 'Hi, my name is NPC Tim.';
 const typingSpeed = 75;
 let a = 0;
 
@@ -88,7 +88,7 @@ function handleLinkClick(event, linkType) {
 
 // Attach event listeners to the links
 document.addEventListener('DOMContentLoaded', () => {
-    const xLink = document.querySelector('a[href="https://x.com/timetimiri"]');
+    const xLink = document.querySelector('a[href="https://x.com/sorrynpctim"]');
     const highlightsLink = document.querySelector('a[href="highlights.html"]');
     
     if (xLink) {
