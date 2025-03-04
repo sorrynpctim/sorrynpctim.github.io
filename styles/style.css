@@ -68,6 +68,10 @@ a:hover {
 #highlight_links {
     color: #9a9a9a;
     animation: fadeIn 3s forwards; /* Fade-in animation for the container */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
 }
 
 span {
