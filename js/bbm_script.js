@@ -70,17 +70,27 @@ document.addEventListener("DOMContentLoaded", () => {
             const isIphone = /iPhone|iPad|iPod/i.test(navigator.userAgent);
 
             if (isIphone && !isFirstTapBlocked) {
-                console.log("iPhone detected: Blocking first tap, requiring manual play.");
-                generateBtn.innerText = "Tap Again to Play";
-                isFirstTapBlocked = true;
+                console.log("iPhone detected: Playing for 1 second, then requiring manual play.");
+                
+                // Play the audio for 1 second
+                audioPlayer.play();
+                setTimeout(() => {
+                    audioPlayer.pause();
+                    audioPlayer.currentTime = 0;
+                    audioPlayer.src = ""; // Delete the original audio
+                    generateBtn.innerText = "Tap Again to Play";
+                    isFirstTapBlocked = true;
 
-                // Ensure only one event listener is added for manual play
-                generateBtn.onclick = () => {
-                    audioPlayer.play();
-                    generateBtn.innerText = "Generate Speech"; // Reset button text
-                    isFirstTapBlocked = false; // Reset flag
-                    generateBtn.onclick = null; // Remove event to prevent stacking
-                };
+                    // Ensure only one event listener is added for manual play
+                    generateBtn.onclick = () => {
+                        audioPlayer.src = audioURL; // Reassign the new audio
+                        audioPlayer.play();
+                        generateBtn.innerText = "Generate Speech"; // Reset button text
+                        isFirstTapBlocked = false; // Reset flag
+                        generateBtn.onclick = null; // Remove event to prevent stacking
+                    };
+                }, 1000); // Play for 1 second
+
             } else {
                 // Play normally on Android and after second tap on iPhone
                 audioPlayer.play();
