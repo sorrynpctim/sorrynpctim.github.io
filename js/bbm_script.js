@@ -29,11 +29,22 @@ document.addEventListener("DOMContentLoaded", () => {
     const audioPlayer = document.getElementById("audioPlayer");
     const audioContainer = document.getElementById("audio-container");
 
-    let isFirstTapBlocked = false; // Flag to track iPhone behavior
+    let audioReady = false; // Tracks whether audio has been generated and is waiting to play
 
     generateBtn.addEventListener("click", async () => {
-        const textInput = document.getElementById("textInput").value.trim();
+        // Detect if the user is on an iPhone
+        const isIphone = /iPhone|iPad|iPod/i.test(navigator.userAgent);
 
+        // If on iPhone and audio is already generated, play it and reset state.
+        if (isIphone && audioReady) {
+            audioPlayer.play();
+            generateBtn.innerText = "Generate Speech";
+            audioReady = false;
+            return;
+        }
+
+        // If not in the "play" state, generate new audio
+        const textInput = document.getElementById("textInput").value.trim();
         if (!textInput) {
             alert("Please enter some text.");
             return;
@@ -47,18 +58,16 @@ document.addEventListener("DOMContentLoaded", () => {
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ text: textInput })
             });
-
             if (!response.ok) {
                 throw new Error(`Server error: ${response.status}`);
             }
 
             console.log("Audio file received from Worker.");
-
             // Convert response into a Blob URL
             const audioBlob = await response.blob();
             const audioURL = URL.createObjectURL(audioBlob);
 
-            // **STOP ANY PREVIOUS AUDIO BEFORE SETTING A NEW ONE**
+            // Stop any previous audio before setting a new one
             audioPlayer.pause();
             audioPlayer.currentTime = 0;
 
@@ -66,36 +75,14 @@ document.addEventListener("DOMContentLoaded", () => {
             audioPlayer.src = audioURL;
             audioContainer.style.display = "block";
 
-            // Detect if the user is on iPhone
-            const isIphone = /iPhone|iPad|iPod/i.test(navigator.userAgent);
-
-            if (isIphone && !isFirstTapBlocked) {
-                console.log("iPhone detected: Playing for 1 second, then requiring manual play.");
-                
-                // Play the audio for 1 second
-                audioPlayer.play();
-                setTimeout(() => {
-                    audioPlayer.pause();
-                    audioPlayer.currentTime = 0;
-                    audioPlayer.src = ""; // Delete the original audio
-                    generateBtn.innerText = "Tap Again to Play";
-                    isFirstTapBlocked = true;
-
-                    // Ensure only one event listener is added for manual play
-                    generateBtn.onclick = () => {
-                        audioPlayer.src = audioURL; // Reassign the new audio
-                        audioPlayer.play();
-                        generateBtn.innerText = "Generate Speech"; // Reset button text
-                        isFirstTapBlocked = false; // Reset flag
-                        generateBtn.onclick = null; // Remove event to prevent stacking
-                    };
-                }, 1000); // Play for 1 second
-
+            if (isIphone) {
+                // On iPhone, update the state so that the next tap plays the audio.
+                generateBtn.innerText = "Tap to Play";
+                audioReady = true;
             } else {
-                // Play normally on Android and after second tap on iPhone
+                // On non-iPhone devices, play automatically.
                 audioPlayer.play();
             }
-
         } catch (error) {
             console.error("Error fetching generated speech:", error);
             alert("Failed to generate speech. Check the console for details.");
