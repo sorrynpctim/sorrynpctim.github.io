@@ -27,13 +27,11 @@ document.addEventListener("DOMContentLoaded", () => {
     const generateBtn = document.getElementById("generateBtn");
     const audioPlayer = document.getElementById("audioPlayer");
     const audioContainer = document.getElementById("audio-container");
-    const downloadLink = document.getElementById("downloadLink");
 
     console.log("Elements fetched:", {
         generateBtn,
         audioPlayer,
-        audioContainer,
-        downloadLink
+        audioContainer
     });
 
     // Pre-stored test WAV file (Make sure it exists in ./media/)
@@ -75,14 +73,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 // Show the audio player
                 audioContainer.style.display = "block";
                 console.log("Audio container made visible.");
-
-                // Update the Download button to open in a new tab
-                downloadLink.style.display = "inline-block";
-                console.log("Download button displayed.");
-                downloadLink.onclick = () => {
-                    console.log("Download button clicked. Opening audio in new tab...");
-                    window.open(blobURL, "_blank"); // Open the file in a new tab
-                };
             })
             .catch(error => console.error("Error loading audio:", error));
     });
