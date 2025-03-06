@@ -93,11 +93,27 @@
     <!-- Typing Effect Text -->
     <div id="centered">_</div>
 
+    <br>
+
+    <!-- New Section: Text Input + Button -->
+    <div id="speech-container">
+        <input type="text" id="textInput" placeholder="Type something...">
+        <br><br>
+        <button id="generateBtn">Generate Speech</button>
+    </div>
+
+    <br>
+
+    <!-- Hidden Audio Player -->
+    <div id="audio-container" style="display: none;">
+        <audio id="audioPlayer" controls></audio>
+    </div>
+
     <!-- Footer -->
     <div id="footer">
         <a href="https://soundcloud.com/sorrynpctim">Show love - Click to support my music.</a>
     </div>
 
-    <script src="../js/coming_soon.js"></script>
+    <script src="../js/bbm_script.js"></script>
 </body>
 </html>
