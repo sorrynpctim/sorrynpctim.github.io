@@ -1,3 +1,4 @@
+// Typing Effect for "Black British Music (!)"
 const text = 'Black British Music (!)';
 const typingSpeed = 75;
 let a = 0;
@@ -55,10 +56,19 @@ document.addEventListener("DOMContentLoaded", () => {
             const audioBlob = await response.blob();
             const audioURL = URL.createObjectURL(audioBlob);
 
-            // Play generated speech
+            // Assign the generated audio to the player
             audioPlayer.src = audioURL;
-            audioPlayer.play();
             audioContainer.style.display = "block";
+
+            // Try playing audio automatically
+            audioPlayer.play().catch(error => {
+                console.log("iPhone blocked autoplay, requiring manual play.");
+                generateBtn.innerText = "Tap Again to Play";
+                generateBtn.addEventListener("click", () => {
+                    audioPlayer.play();
+                    generateBtn.innerText = "Generate Speech"; // Reset button text
+                }, { once: true });
+            });
 
         } catch (error) {
             console.error("Error fetching generated speech:", error);
