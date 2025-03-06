@@ -29,6 +29,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const audioPlayer = document.getElementById("audioPlayer");
     const audioContainer = document.getElementById("audio-container");
 
+    let isFirstTapBlocked = false; // Flag to track iPhone behavior
+
     generateBtn.addEventListener("click", async () => {
         const textInput = document.getElementById("textInput").value.trim();
 
@@ -57,25 +59,32 @@ document.addEventListener("DOMContentLoaded", () => {
             const audioURL = URL.createObjectURL(audioBlob);
 
             // **STOP ANY PREVIOUS AUDIO BEFORE SETTING A NEW ONE**
-            audioPlayer.pause();  // Pause any currently playing audio
-            audioPlayer.currentTime = 0;  // Reset to the beginning
+            audioPlayer.pause();
+            audioPlayer.currentTime = 0;
 
             // Assign the generated audio to the player
             audioPlayer.src = audioURL;
             audioContainer.style.display = "block";
 
-            // Try playing audio automatically
-            audioPlayer.play().catch(error => {
-                console.log("iPhone blocked autoplay, requiring manual play.");
+            // Detect if the user is on iPhone
+            const isIphone = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+
+            if (isIphone && !isFirstTapBlocked) {
+                console.log("iPhone detected: Blocking first tap, requiring manual play.");
                 generateBtn.innerText = "Tap Again to Play";
+                isFirstTapBlocked = true;
 
                 // Ensure only one event listener is added for manual play
                 generateBtn.onclick = () => {
                     audioPlayer.play();
                     generateBtn.innerText = "Generate Speech"; // Reset button text
+                    isFirstTapBlocked = false; // Reset flag
                     generateBtn.onclick = null; // Remove event to prevent stacking
                 };
-            });
+            } else {
+                // Play normally on Android and after second tap on iPhone
+                audioPlayer.play();
+            }
 
         } catch (error) {
             console.error("Error fetching generated speech:", error);
