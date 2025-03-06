@@ -56,6 +56,10 @@ document.addEventListener("DOMContentLoaded", () => {
             const audioBlob = await response.blob();
             const audioURL = URL.createObjectURL(audioBlob);
 
+            // **STOP ANY PREVIOUS AUDIO BEFORE SETTING A NEW ONE**
+            audioPlayer.pause();  // Pause any currently playing audio
+            audioPlayer.currentTime = 0;  // Reset to the beginning
+
             // Assign the generated audio to the player
             audioPlayer.src = audioURL;
             audioContainer.style.display = "block";
@@ -64,10 +68,13 @@ document.addEventListener("DOMContentLoaded", () => {
             audioPlayer.play().catch(error => {
                 console.log("iPhone blocked autoplay, requiring manual play.");
                 generateBtn.innerText = "Tap Again to Play";
-                generateBtn.addEventListener("click", () => {
+
+                // Ensure only one event listener is added for manual play
+                generateBtn.onclick = () => {
                     audioPlayer.play();
                     generateBtn.innerText = "Generate Speech"; // Reset button text
-                }, { once: true });
+                    generateBtn.onclick = null; // Remove event to prevent stacking
+                };
             });
 
         } catch (error) {
