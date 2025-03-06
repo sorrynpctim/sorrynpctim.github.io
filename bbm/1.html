@@ -78,7 +78,9 @@
             }
 
             #audio-container {
-                display: none !important;
+                visibility: hidden; /* Hides it visually but keeps it functional */
+                height: 0; /* Collapses the space */
+                overflow: hidden;
             }
         }
     </style>
