@@ -5,7 +5,7 @@ let a = 0;
 function type() {
     console.log("Typing effect started.");
     if (a < text.length) {
-        document.getElementById('centered').innerHTML = text.substring(0, a + 1); // Replace the content
+        document.getElementById('centered').innerHTML = text.substring(0, a + 1);
         console.log(`Typing progress: ${text.substring(0, a + 1)}`);
         a++;
         setTimeout(type, typingSpeed);
@@ -20,60 +20,49 @@ window.onload = () => {
     type();
 };
 
-// Audio Playback Setup
-document.addEventListener("DOMContentLoaded", () => {
-    console.log("DOM fully loaded. Initializing event listeners...");
+// Cloudflare Worker API Endpoint
+const CLOUDLARE_WORKER_URL = "https://generate-speech.timtheotg.workers.dev";
 
+document.addEventListener("DOMContentLoaded", () => {
     const generateBtn = document.getElementById("generateBtn");
     const audioPlayer = document.getElementById("audioPlayer");
     const audioContainer = document.getElementById("audio-container");
 
-    console.log("Elements fetched:", {
-        generateBtn,
-        audioPlayer,
-        audioContainer
-    });
+    generateBtn.addEventListener("click", async () => {
+        const textInput = document.getElementById("textInput").value.trim();
 
-    // Pre-stored test WAV file (Make sure it exists in ./media/)
-    const testMP3 = "./media/PBM.wav";
+        if (!textInput) {
+            alert("Please enter some text.");
+            return;
+        }
 
-    let blobURL = null; // Store the generated Blob URL to prevent memory leaks
+        console.log("Sending text to Cloudflare Worker:", textInput);
 
-    generateBtn.addEventListener("click", () => {
-        console.log("Generate Speech button clicked.");
-        console.log(`Fetching audio file: ${testMP3}`);
+        try {
+            const response = await fetch(CLOUDLARE_WORKER_URL, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ text: textInput })
+            });
 
-        fetch(testMP3)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error(`HTTP error! Status: ${response.status}`);
-                }
-                console.log("Audio file fetched successfully.");
-                return response.blob();
-            })
-            .then(blob => {
-                console.log("Blob created from audio file.");
+            if (!response.ok) {
+                throw new Error(`Server error: ${response.status}`);
+            }
 
-                // Clean up any previously created Blob URL
-                if (blobURL) {
-                    console.log("Revoking previous Blob URL.");
-                    URL.revokeObjectURL(blobURL);
-                }
+            console.log("Audio file received from Worker.");
 
-                // Create a new Blob URL
-                blobURL = URL.createObjectURL(blob);
-                console.log("New Blob URL created:", blobURL);
+            // Convert response into a Blob URL
+            const audioBlob = await response.blob();
+            const audioURL = URL.createObjectURL(audioBlob);
 
-                // Set the audio player source & play it
-                audioPlayer.src = blobURL;
-                console.log("Audio player source set.");
-                audioPlayer.play();
-                console.log("Audio playback started.");
+            // Play generated speech
+            audioPlayer.src = audioURL;
+            audioPlayer.play();
+            audioContainer.style.display = "block";
 
-                // Show the audio player
-                audioContainer.style.display = "block";
-                console.log("Audio container made visible.");
-            })
-            .catch(error => console.error("Error loading audio:", error));
+        } catch (error) {
+            console.error("Error fetching generated speech:", error);
+            alert("Failed to generate speech. Check the console for details.");
+        }
     });
 });
