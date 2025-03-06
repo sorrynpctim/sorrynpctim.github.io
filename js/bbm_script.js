@@ -21,7 +21,7 @@ window.onload = () => {
 };
 
 // Cloudflare Worker API Endpoint
-const CLOUDLARE_WORKER_URL = "https://generate-speech.timtheotg.workers.dev";
+const CLOUDLARE_WORKER_URL = "https://speech-generate.blackbritishmusic.workers.dev/";
 
 document.addEventListener("DOMContentLoaded", () => {
     const generateBtn = document.getElementById("generateBtn");
