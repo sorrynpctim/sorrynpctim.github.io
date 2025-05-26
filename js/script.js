@@ -64,7 +64,7 @@ document.addEventListener('mousemove', (event) => {
 
 // List of MP3s for each link
 const mp3s = {
-    xLink: ['audio/x1.mp3', 'audio/x2.mp3', 'audio/x3.mp3'],
+    instgramLink: ['audio/instagram1.mp3', 'audio/instagram2.mp3', 'audio/instagram3.mp3'],
     highlightsLink: ['audio/highlights1.mp3', 'audio/highlights2.mp3', 'audio/highlights3.mp3']
 };
 
@@ -88,11 +88,11 @@ function handleLinkClick(event, linkType) {
 
 // Attach event listeners to the links
 document.addEventListener('DOMContentLoaded', () => {
-    const xLink = document.querySelector('a[href="https://x.com/sorrynpctim"]');
+    const instgramLink = document.querySelector('a[href="https://www.instagram.com/sorrynpctim/"]');
     const highlightsLink = document.querySelector('a[href="highlights.html"]');
     
-    if (xLink) {
-        xLink.addEventListener('click', (event) => handleLinkClick(event, 'xLink'));
+    if (instgramLink) {
+        instgramLink.addEventListener('click', (event) => handleLinkClick(event, 'instgramLink'));
     }
     
     if (highlightsLink) {
