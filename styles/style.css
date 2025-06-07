@@ -49,22 +49,6 @@ a:hover {
     text-decoration: none;        /* Ensure no underline on hover */
 }
 
-/* Fade-in animation for the entire character container */
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
-
-/* Fade-in applied to the character container */
-#characters-container {
-    height: 125px;
-    width: 125px;
-    opacity: 0;                   /* Start hidden */
-    animation: fadeIn 3s forwards; /* Fade-in animation for the container */
-    position: relative;           /* Position relative to enable absolute positioning for children */
-    margin-bottom: 0px;
-}
-
 #highlight_links {
     color: #9a9a9a;
     animation: fadeIn 3s forwards; /* Fade-in animation for the container */
@@ -78,32 +62,6 @@ span {
     font-family: system-ui;
 }
 
-/* Applying movement animations to each eye independently */
-#left_eyes {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-}
-
-#right_eyes {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-}
-
-/* Positioning the character image */
-#characters {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-}
-
 #links, #status {
     opacity: 0;                   /* Start hidden */
     transition: opacity 1.5s;     /* Adjust duration as needed */
@@ -111,10 +69,6 @@ span {
 
 .fade-in {
     opacity: 1 !important;        /* Fully visible when fade-in class is added */
-}
-
-#left_eyes, #right_eyes {
-    transition: transform 0.2s ease-out; /* Smooth movement over 0.2 seconds */
 }
 
 /* Zoomed-in mobile version */
@@ -140,11 +94,5 @@ span {
 
     div {
         margin-bottom: 32px;
-    }
-
-    /* Fade-in applied to the character container */
-    #characters-container {
-        height: 250px;
-        width: 250px;
     }
 }
