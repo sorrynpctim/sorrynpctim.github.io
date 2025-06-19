@@ -71,6 +71,15 @@ span {
     opacity: 1 !important;        /* Fully visible when fade-in class is added */
 }
 
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
 /* Zoomed-in mobile version */
 @media (max-width: 1000px) {
     body {
