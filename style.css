@@ -384,17 +384,3 @@ body {
   animation: pageFadeIn 1s ease forwards;
   opacity: 0;
 }
-
-@media (max-width: 600px) {
-  /* allow the scaled container to “spill out” instead of getting clipped */
-  html,
-  body,
-  .container {
-    overflow: visible;
-  }
-
-  .container {
-    /* scale down until it fits, and keep the top-left corner anchored */
-    transform: scale(0.58); /* tweak this number so 800px→≤viewport width */
-  }
-}
