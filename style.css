@@ -364,10 +364,11 @@ body {
   transition: opacity 0.3s ease;
   animation: fadeIn 0.5s ease forwards;
   animation-delay: 0.3s;
+  transition: filter 0.3s ease;
 }
 
 #exit-camera:hover {
-  opacity: 0.75;
+  filter: brightness(75%);
 }
 
 @keyframes pageFadeIn {
@@ -382,4 +383,18 @@ body {
 .container {
   animation: pageFadeIn 1s ease forwards;
   opacity: 0;
+}
+
+@media (max-width: 600px) {
+  /* allow the scaled container to “spill out” instead of getting clipped */
+  html,
+  body,
+  .container {
+    overflow: visible;
+  }
+
+  .container {
+    /* scale down until it fits, and keep the top-left corner anchored */
+    transform: scale(0.58); /* tweak this number so 800px→≤viewport width */
+  }
 }
