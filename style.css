@@ -1,0 +1,385 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  user-select: none;
+  font-weight: bold;
+}
+
+html,
+body {
+  height: 100%;
+  background-color: #f8f5f5;
+  overflow: hidden;
+  font-family: "Helvetica Neue", sans-serif;
+}
+
+.container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.phone {
+  position: absolute;
+  width: 800px;
+  height: auto;
+  top: -80px;
+  z-index: 1;
+}
+
+.screen,
+.home-screen {
+  position: absolute;
+  width: 401.6px;
+  height: 598.6px;
+  top: 189.7px;
+  left: calc(50% - 197.8px);
+  background-image: url("img/wallpaper.jpg");
+  background-size: cover;
+  background-position: center;
+  border-radius: 5px;
+  z-index: 2;
+  overflow: hidden;
+  transition: opacity 0.5s ease;
+}
+
+.home-screen {
+  display: none;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.status-bar {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 25px;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 8px;
+  font-size: 12px;
+  color: white;
+}
+
+.status-left {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.status-right {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.status-left img,
+.status-right img {
+  height: 12px;
+  width: auto;
+  opacity: 0.9;
+}
+
+.carrier,
+.battery-percentage {
+  font-size: 11px;
+  opacity: 0.85;
+}
+
+.lock-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 12px;
+  opacity: 0.85;
+  pointer-events: none;
+}
+
+.clock-bar {
+  position: absolute;
+  top: 25px;
+  width: 100%;
+  height: 115px;
+  background-color: rgba(0, 0, 0, 0.25);
+  z-index: 2;
+  transition: transform 0.4s ease;
+}
+
+.lock-screen {
+  position: absolute;
+  top: 25px;
+  width: 100%;
+  height: calc(100% - 25px);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  z-index: 2;
+}
+
+.lock-screen .time-block {
+  margin-top: 6px;
+  text-align: center;
+  line-height: 1.1;
+  transition: transform 0.4s ease;
+}
+
+.clock {
+  font-size: 68px;
+  font-weight: 100;
+  letter-spacing: -1px;
+}
+
+.date {
+  font-size: 17px;
+  font-weight: 300;
+}
+
+.slide-area {
+  position: relative;
+  bottom: 30px;
+  width: 100%;
+  text-align: center;
+}
+
+#slider-container {
+  position: relative;
+  height: 60px;
+  margin-top: 415.5px;
+  margin-left: 27px;
+  width: 348.5px;
+}
+
+#unlock-handle {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 90px;
+  height: auto;
+  cursor: pointer;
+  z-index: 5;
+  transition: transform 0.4s ease;
+}
+
+#unlock-handle.slide-down {
+  transform: translateY(200%);
+}
+
+.slide-text {
+  width: 450px;
+  height: auto;
+  margin-top: -96px;
+  margin-left: -30px;
+  display: block;
+  transition: opacity 0.1s linear;
+}
+
+.lock-bottom {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  transition: transform 0.4s ease;
+}
+
+.lock-bottom img {
+  width: 100%;
+  display: block;
+}
+
+.slide-up {
+  transform: translateY(-150%);
+}
+
+.slide-down {
+  transform: translateY(100%);
+}
+
+#time-block.slide-up {
+  transform: translateY(-150%);
+}
+
+.dock-wrapper {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 90px;
+  transform: translateY(100%);
+  opacity: 0;
+  transition: transform 0.5s ease, opacity 0.5s ease;
+  z-index: 3;
+}
+
+.dock-wrapper.show-dock {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.dock-bg {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.dock-icons {
+  position: absolute;
+  bottom: 17px;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  z-index: 2;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.dock-icon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: white;
+  font-size: 11px;
+  text-shadow: 0 1px 1px black;
+}
+
+.dock-icon img {
+  width: 75px;
+  height: 75px;
+  margin-bottom: 3px;
+  border-radius: 15px;
+}
+
+.dock-icon img {
+  width: 75px;
+  height: 75px;
+  margin-bottom: 3px;
+  border-radius: 15px;
+  transition: filter 0.3s ease;
+}
+
+.dock-icon img:hover {
+  filter: brightness(80%);
+}
+
+.app-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 50px 21px 0;
+  width: 100%;
+  gap: 30px 10px;
+  box-sizing: border-box;
+}
+
+.app-icon {
+  width: 22%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: white;
+  font-size: 11px;
+  text-shadow: 0 1px 1px black;
+}
+
+.app-icon img {
+  width: 75px;
+  height: 75px;
+  margin-bottom: 5px;
+  border-radius: 15px;
+  transition: filter 0.3s ease;
+}
+
+.app-icon img:hover {
+  filter: brightness(75%);
+}
+
+#videos-icon {
+  transform: translate(-50px, -50px);
+  opacity: 0;
+  transition: transform 0.4s ease-out, opacity 0.4s ease-out;
+}
+
+#videos-icon.slide-in {
+  transform: translate(0, 0);
+  opacity: 1;
+}
+
+#camera-icon {
+  transform: translate(-50px, -50px);
+  opacity: 0;
+  transition: transform 0.4s ease-out, opacity 0.4s ease-out;
+}
+
+#camera-icon.slide-in {
+  transform: translate(0, 0);
+  opacity: 1;
+}
+
+#blackberry-icon {
+  transform: translate(50px, -50px);
+  opacity: 0;
+  transition: transform 0.4s ease-out, opacity 0.4s ease-out;
+}
+
+#blackberry-icon.slide-in {
+  transform: translate(0, 0);
+  opacity: 1;
+}
+
+#dummy {
+  transform: translate(50px, -50px);
+  opacity: 0;
+  transition: transform 0.4s ease-out, opacity 0.4s ease-out;
+}
+
+#dummy.slide-in {
+  transform: translate(0, 0);
+  opacity: 1;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+#exit-camera {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  animation: fadeIn 0.5s ease forwards;
+  animation-delay: 0.3s;
+}
+
+#exit-camera:hover {
+  opacity: 0.75;
+}
+
+@keyframes pageFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.container {
+  animation: pageFadeIn 1s ease forwards;
+  opacity: 0;
+}

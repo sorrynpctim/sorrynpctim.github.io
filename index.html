@@ -1,13 +1,172 @@
 <!DOCTYPE html>
-<head>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <script src="script.js" defer></script>
+    <link rel="shortcut icon" type="image/x-icon" href="myfavicon.ico" />
     <title>npc tim</title>
-    <link rel="stylesheet" href="./styles/style.css">
-    <link rel="shortcut icon" type="image/x-icon" href="myfavicon.ico"/>
-    <meta charset="utf8">
-</head>
-<body>
-    <div id="centered">_</div>
-    <div id="links"><a href="https://www.instagram.com/sorrynpctim/">instagram</a> - <a href="highlights.html">highlights</a></div>
-    <div id="status"><span>❀ ◦ ° ❀ ° ◦ ❀</span></div>
-</body>
-<script src="js/script.js"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Helvetica+Neue:wght@100;300;400&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <!-- Lock Screen -->
+      <div class="screen" id="screen">
+        <div class="status-bar">
+          <div class="status-left">
+            <img src="img/signal.png" alt="Signal" />
+            <span class="carrier">npc</span>
+          </div>
+          <img class="lock-icon" src="img/lock.png" alt="Lock" />
+          <div class="status-right">
+            <span class="battery-percentage">1%</span>
+            <img src="img/battery.png" alt="Battery" />
+          </div>
+        </div>
+
+        <div class="clock-bar" id="clock-bar"></div>
+
+        <div class="lock-screen">
+          <div class="time-block" id="time-block">
+            <div class="clock">8:13</div>
+            <div class="date">Wednesday, July 9</div>
+          </div>
+
+          <div class="slide-area">
+            <div id="slider-container">
+              <img
+                id="unlock-handle"
+                src="img/lock-slider.png"
+                alt="Slide Handle"
+              />
+            </div>
+            <img
+              class="slide-text"
+              src="img/slide-to-unlock.gif"
+              alt="Slide to Unlock"
+            />
+          </div>
+        </div>
+
+        <div class="lock-bottom" id="lock-bottom">
+          <img src="img/lock-bottom.png" alt="Lock Bottom" />
+        </div>
+      </div>
+
+      <!-- Home Screen -->
+      <div class="home-screen" id="home-screen">
+        <div class="status-bar">
+          <div class="status-left">
+            <img src="img/signal.png" alt="Signal" />
+            <span class="carrier">npc</span>
+            <span
+              id="status-clock"
+              style="margin-left: 128px; font-size: 11px"
+            ></span>
+          </div>
+          <div class="status-right">
+            <span class="battery-percentage">1%</span>
+            <img src="img/battery.png" alt="Battery" />
+          </div>
+        </div>
+        <!-- App Grid -->
+        <div class="app-grid">
+          <div class="app-icon" id="videos-icon">
+            <a href="https://www.youtube.com/@sorrynpctim" target="_blank"
+              ><img src="img/videos.png" alt="Videos" /></a
+            ><span>Videos</span>
+          </div>
+          <div class="app-icon" id="camera-icon">
+            <a href="#"><img src="img/camera.png" alt="Camera" /></a
+            ><span>Camera</span>
+          </div>
+          <div class="app-icon" id="blackberry-icon">
+            <a href="https://blackbritishmusic.rocks/" target="_blank"
+              ><img
+                src="img/bb.png"
+                alt="Blackberry"
+                style="border-radius: 0px" /></a
+            ><span>BBM (!)</span>
+          </div>
+          <div class="app-icon" id="dummy">
+            <img src="" alt="Dummy" /><span>Dummy</span>
+          </div>
+        </div>
+        <!-- Dock -->
+        <div class="dock-wrapper" id="dock-wrapper">
+          <img src="img/dock-bg.png" alt="Dock Background" class="dock-bg" />
+          <div class="dock-icons">
+            <div class="dock-icon">
+              <a
+                href="https://discord.com/users/1234450021035020322"
+                target="_blank"
+                ><img src="img/call.png" alt="Phone"
+              /></a>
+              <span>Phone</span>
+            </div>
+            <div class="dock-icon">
+              <a
+                href="https://discord.com/users/1234450021035020322"
+                target="_blank"
+                ><img src="img/messages.png" alt="Messages"
+              /></a>
+              <span>Messages</span>
+            </div>
+            <div class="dock-icon">
+              <a href="https://www.instagram.com/sorrynpctim/" target="_blank"
+                ><img src="img/photos.png" alt="Photos"
+              /></a>
+              <span>Photos</span>
+            </div>
+            <div class="dock-icon">
+              <a href="https://soundcloud.com/sorrynpctim" target="_blank"
+                ><img src="img/music.png" alt="Music"
+              /></a>
+              <span>Music</span>
+            </div>
+          </div>
+        </div>
+        <video
+          id="camera-view"
+          autoplay
+          playsinline
+          style="
+            display: none;
+            position: absolute;
+            top: 25px;
+            height: calc(100% - 24px);
+            object-fit: cover;
+            z-index: 4;
+            border-radius: 5px;
+          "
+        ></video>
+
+        <button
+          id="exit-camera"
+          style="
+            display: none;
+            position: absolute;
+            top: 40px;
+            left: 15px;
+            z-index: 5;
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 5px 10px;
+            font-size: 12px;
+            cursor: pointer;
+          "
+        >
+          Back
+        </button>
+      </div>
+
+      <img class="phone" src="img/iPhone.png" alt="iPhone 4 UI" />
+    </div>
+  </body>
+</html>
