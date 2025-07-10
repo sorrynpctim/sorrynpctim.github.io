@@ -8,7 +8,7 @@ function updateTime() {
   clockEl.textContent = time;
 
   if (hours % 12 >= 10) {
-    clockEl.style.marginLeft = "123.5px";
+    clockEl.style.marginLeft = "123px";
   } else {
     clockEl.style.marginLeft = "128px";
   }
