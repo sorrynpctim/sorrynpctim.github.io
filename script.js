@@ -128,10 +128,11 @@ cameraIcon.addEventListener("click", () => {
       video.srcObject = stream;
       video.style.display = "block";
       exitBtn.style.display = "block";
+      video.style.transform = "scaleX(-1)";
     })
     .catch((err) => {
-      console.error("Camera error:", err);
-      alert("Unable to access the camera.");
+      console.error("camera error:", err);
+      alert("camera app failed.");
     });
 });
 
