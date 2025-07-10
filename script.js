@@ -3,6 +3,16 @@ function updateTime() {
   const hours = now.getHours();
   const minutes = now.getMinutes().toString().padStart(2, "0");
   const time = `${hours % 12 || 12}:${minutes}`;
+
+  const clockEl = document.getElementById("status-clock");
+  clockEl.textContent = time;
+
+  if (hours % 12 >= 10) {
+    clockEl.style.marginLeft = "123.5px";
+  } else {
+    clockEl.style.marginLeft = "128px";
+  }
+
   const weekdays = [
     "Sunday",
     "Monday",
