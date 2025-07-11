@@ -141,8 +141,8 @@ cameraIcon.addEventListener("click", () => {
       video.style.transform = "scaleX(-1)";
     })
     .catch((err) => {
-      console.error("camera error:", err);
-      alert("camera app failed.");
+      console.error("Camera error:", err);
+      alert("Camera app failed.");
     });
 });
 
