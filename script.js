@@ -8,12 +8,6 @@ function updateTime() {
   const clockEl = document.getElementById("status-clock");
   clockEl.textContent = time;
 
-  if (hours % 12 >= 10) {
-    clockEl.style.marginLeft = "123px";
-  } else {
-    clockEl.style.marginLeft = "128px";
-  }
-
   const weekdays = [
     "Sunday",
     "Monday",
