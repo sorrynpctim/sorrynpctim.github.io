@@ -1,3 +1,4 @@
+// CLOCK AND DATE
 function updateTime() {
   const now = new Date();
   const hours = now.getHours();
@@ -49,6 +50,7 @@ function updateTime() {
 updateTime();
 setInterval(updateTime, 1000);
 
+// SLIDE TO UNLOCK
 const handle = document.getElementById("unlock-handle");
 const container = document.getElementById("slider-container");
 const slideText = document.querySelector(".slide-text");
@@ -102,6 +104,7 @@ document.addEventListener("touchmove", (e) => moveDrag(e.touches[0].clientX));
 document.addEventListener("mouseup", endDrag);
 document.addEventListener("touchend", endDrag);
 
+// UNLOCK TRANSITION
 function unlock() {
   const audio = new Audio("sounds/unlock-sound.wav");
   audio.play();
@@ -126,7 +129,7 @@ function unlock() {
   }, 400);
 }
 
-// CAMERA APP FUNCTIONALITY
+// CAMERA APP
 const cameraIcon = document.getElementById("camera-icon");
 const video = document.getElementById("camera-view");
 const exitBtn = document.getElementById("exit-camera");

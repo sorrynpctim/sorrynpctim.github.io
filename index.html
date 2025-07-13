@@ -63,10 +63,7 @@
           <div class="status-left">
             <img src="img/signal.png" alt="Signal" />
             <span class="carrier">NPC</span>
-            <span
-              id="status-clock"
-              style="margin-left: 128px; font-size: 11px"
-            ></span>
+            <span id="status-clock"></span>
           </div>
           <div class="status-right">
             <span class="battery-percentage">1%</span>
@@ -86,14 +83,11 @@
           </div>
           <div class="app-icon" id="blackberry-icon">
             <a href="https://blackbritishmusic.rocks/" target="_blank"
-              ><img
-                src="img/bb.png"
-                alt="Blackberry"
-                style="border-radius: 0px" /></a
+              ><img id="blackberry-logo" src="img/bb.png" alt="Blackberry" /></a
             ><span>BBM (!)</span>
           </div>
-          <div class="app-icon" id="dummy">
-            <img src="" alt="Dummy" /><span>Dummy</span>
+          <div class="app-icon" id="placeholder">
+            <img src="" alt="placeholder" /><span>placeholder</span>
           </div>
         </div>
         <!-- Dock -->
@@ -130,40 +124,9 @@
             </div>
           </div>
         </div>
-        <video
-          id="camera-view"
-          autoplay
-          playsinline
-          style="
-            display: none;
-            position: absolute;
-            top: 25px;
-            height: calc(100% - 24px);
-            object-fit: cover;
-            z-index: 4;
-            border-radius: 5px;
-          "
-        ></video>
+        <video id="camera-view" autoplay playsinline></video>
 
-        <button
-          id="exit-camera"
-          style="
-            display: none;
-            position: absolute;
-            top: 40px;
-            left: 15px;
-            z-index: 5;
-            background: rgba(0, 0, 0, 0.5);
-            color: white;
-            border: none;
-            border-radius: 5px;
-            padding: 5px 10px;
-            font-size: 12px;
-            cursor: pointer;
-          "
-        >
-          Back
-        </button>
+        <button id="exit-camera">Back</button>
       </div>
 
       <img class="phone" src="img/iPhone.png" alt="iPhone 4 UI" />
