@@ -306,24 +306,24 @@ body {
   filter: brightness(75%);
 }
 
-#photos-icon {
+#instagram-icon {
   transform: translate(-50px, -50px);
   opacity: 0;
   transition: transform 0.4s ease-out, opacity 0.4s ease-out;
 }
 
-#photos-icon.slide-in {
+#instagram-icon.slide-in {
   transform: translate(0, 0);
   opacity: 1;
 }
 
-#videos-icon {
+#youtube-icon {
   transform: translate(-50px, -50px);
   opacity: 0;
   transition: transform 0.4s ease-out, opacity 0.4s ease-out;
 }
 
-#videos-icon.slide-in {
+#youtube-icon.slide-in {
   transform: translate(0, 0);
   opacity: 1;
 }

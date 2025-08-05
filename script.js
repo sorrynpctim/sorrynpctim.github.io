@@ -116,8 +116,8 @@ function unlock() {
 
     setTimeout(() => {
       document.getElementById("dock-wrapper").classList.add("show-dock");
-      document.getElementById("photos-icon").classList.add("slide-in");
-      document.getElementById("videos-icon").classList.add("slide-in");
+      document.getElementById("instagram-icon").classList.add("slide-in");
+      document.getElementById("youtube-icon").classList.add("slide-in");
       document.getElementById("camera-icon").classList.add("slide-in");
       document.getElementById("blackberry-icon").classList.add("slide-in");
     }, 50);
