@@ -429,9 +429,3 @@ body {
   margin-left: 123px;
   font-size: 11px;
 }
-
-@media (max-width: 550px) {
-  #unlock-handle {
-    top: 1px;
-  }
-}
