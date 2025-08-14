@@ -442,7 +442,6 @@ body {
   z-index: 10;
 }
 
-/* Match the flower to the signal's size (12px high) */
 .status-left .carrier .flower {
   height: 40px !important;
   width: 40px !important;
