@@ -430,23 +430,6 @@ body {
   font-size: 11px;
 }
 
-.status-left {
-  position: relative;
-}
-
-.status-left .carrier {
-  position: absolute;
-  left: 24px;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 10;
-}
-
-.status-left .carrier .flower {
-  height: 40px !important;
-  width: 40px !important;
-}
-
 @media (max-width: 700px) {
   #unlock-handle {
     top: 1px;
