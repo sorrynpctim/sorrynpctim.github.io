@@ -428,7 +428,7 @@ body {
 #status-clock {
   position: absolute;
   font-size: 11px;
-  left: 48%;
+  left: 46%;
 }
 
 @media (max-width: 700px) {
