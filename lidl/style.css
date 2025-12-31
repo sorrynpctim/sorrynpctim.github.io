@@ -15,15 +15,29 @@
 * {
   box-sizing: border-box;
 }
+
+/* 🚫 Prevent gesture zoom */
 html,
 body {
   height: 100%;
+  touch-action: manipulation;
 }
+
 body {
   margin: 0;
   font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
   background: var(--bg);
   color: var(--text);
+}
+
+/* 🚫 Prevent zoom when focusing inputs (iOS < 16) */
+input {
+  font-size: 16px !important;
+}
+
+/* 🚫 Prevent double-tap zoom on buttons */
+button {
+  touch-action: manipulation;
 }
 
 .app-header {
@@ -181,7 +195,7 @@ h1 {
   }
 }
 
-/* Editor layout */
+/* Editor */
 .editor-list {
   display: grid;
   gap: 14px;

@@ -815,3 +815,30 @@ function renderSubgroup(title, lines) {
   frag.appendChild(ul);
   return frag;
 }
+
+/* ----------------------------------------------------------
+   🚫 Prevent double-tap and pinch zoom (iOS + Android fallback)
+---------------------------------------------------------- */
+
+document.addEventListener(
+  "touchstart",
+  function (e) {
+    if (e.touches.length > 1) {
+      e.preventDefault(); // Prevent pinch zoom
+    }
+  },
+  { passive: false }
+);
+
+let lastTouch = 0;
+document.addEventListener(
+  "touchend",
+  function (e) {
+    const now = Date.now();
+    if (now - lastTouch <= 300) {
+      e.preventDefault(); // Prevent double-tap zoom
+    }
+    lastTouch = now;
+  },
+  { passive: false }
+);
