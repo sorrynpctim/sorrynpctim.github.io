@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pallet Splitter</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header class="app-header">
+      <h1>Pallet Splitter</h1>
+    </header>
+
+    <main class="app">
+      <!-- Wizard -->
+      <section id="wizard" class="card hidden" aria-live="polite">
+        <div class="wizard-top">
+          <div class="pill" id="stepPill">Step</div>
+          <button
+            class="btn danger ghost hidden"
+            id="clearResultsTopBtn"
+            type="button"
+          >
+            Clear results
+          </button>
+        </div>
+
+        <h2 id="stepTitle">Title</h2>
+        <p id="stepHint" class="hint"></p>
+
+        <div id="wizardBody"></div>
+
+        <div class="wizard-actions">
+          <button id="backBtn" class="btn ghost" type="button">Back</button>
+          <button id="nextBtn" class="btn" type="button">Next</button>
+        </div>
+      </section>
+
+      <!-- Editor -->
+      <section id="editor" class="card hidden">
+        <h2>Edit</h2>
+        <p class="hint">Adjust numbers then save.</p>
+
+        <div id="editorBody"></div>
+
+        <div class="editor-actions">
+          <button id="saveRecalcBtn" class="btn" type="button">
+            Save & Recalculate
+          </button>
+        </div>
+      </section>
+
+      <!-- Results -->
+      <section id="results" class="hidden">
+        <div class="card">
+          <div class="row">
+            <h2>Results</h2>
+            <div class="row" style="justify-content: flex-end">
+              <button id="editBtn" class="btn ghost" type="button">Edit</button>
+              <button
+                id="clearResultsBtn"
+                class="btn danger ghost"
+                type="button"
+              >
+                Clear results
+              </button>
+            </div>
+          </div>
+
+          <div class="summary" id="summary"></div>
+        </div>
+        <br />
+        <div id="peopleCards" class="people"></div>
+      </section>
+    </main>
+
+    <script src="main.js"></script>
+  </body>
+</html>

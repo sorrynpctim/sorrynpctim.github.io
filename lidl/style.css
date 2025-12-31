@@ -1,0 +1,267 @@
+:root {
+  --bg: #f6f7fb;
+  --card: #ffffff;
+  --muted: #5a647a;
+  --text: #0f172a;
+  --line: #e6e9f2;
+
+  --btn: #111827;
+  --btnText: #ffffff;
+
+  --danger: #dc2626;
+  --radius: 18px;
+}
+
+* {
+  box-sizing: border-box;
+}
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
+
+.app-header {
+  padding: 18px 16px 8px;
+  max-width: 980px;
+  margin: 0 auto;
+}
+h1 {
+  margin: 0;
+  font-size: 22px;
+}
+
+.app {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 12px 16px 22px;
+  display: grid;
+  gap: 12px;
+}
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 14px;
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.06);
+}
+
+.hidden {
+  display: none !important;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.hint {
+  color: var(--muted);
+  margin: 8px 0 0;
+  font-size: 13px;
+  line-height: 1.35;
+}
+
+.btn {
+  border: 0;
+  border-radius: 14px;
+  padding: 12px 14px;
+  font-weight: 700;
+  background: var(--btn);
+  color: var(--btnText);
+  cursor: pointer;
+  min-height: 44px;
+}
+.btn.ghost {
+  background: transparent;
+  color: var(--text);
+  border: 1px solid var(--line);
+}
+.btn.danger {
+  background: var(--danger);
+  color: white;
+  border-color: rgba(220, 38, 38, 0.35);
+}
+.btn:active {
+  transform: translateY(1px);
+}
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 10px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.wizard-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.wizard-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+/* Stepper */
+.stepper {
+  display: grid;
+  gap: 6px;
+}
+.stepper label {
+  font-size: 12px;
+  color: var(--muted);
+}
+.stepper-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.stepper input {
+  width: 92px;
+  height: 50px;
+  border-radius: 14px;
+  border: 1px solid var(--line);
+  background: #fff;
+  color: var(--text);
+  font-size: 20px;
+  text-align: center;
+}
+.stepper .mini {
+  min-height: 44px;
+  padding: 10px 12px;
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+  margin: 14px 0 4px;
+}
+
+/* Section layout (used in wizard and editor) */
+.section-grid {
+  display: grid;
+  gap: 12px;
+  margin-top: 10px;
+}
+.section-block {
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 12px;
+  background: #fafbff;
+}
+.section-block h3 {
+  margin: 0 0 8px;
+  font-size: 14px;
+}
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+@media (max-width: 360px) {
+  .two-col {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Editor layout */
+.editor-list {
+  display: grid;
+  gap: 14px;
+  margin-top: 10px;
+}
+.editor-section {
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  padding: 12px;
+  background: #fff;
+}
+.editor-section > h3 {
+  margin: 0 0 10px;
+  font-size: 15px;
+}
+.editor-actions {
+  margin-top: 14px;
+}
+
+/* Results */
+.summary {
+  margin: 10px 0 8px;
+  display: grid;
+  gap: 6px;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.people {
+  display: grid;
+  gap: 12px;
+}
+
+.person-card h3 {
+  margin: 0 0 6px;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+}
+.total {
+  color: var(--muted);
+  font-weight: 600;
+  font-size: 13px;
+}
+
+.subhead {
+  margin: 10px 0 6px;
+  font-size: 12px;
+  letter-spacing: 0.02em;
+  color: var(--muted);
+  text-transform: uppercase;
+}
+
+.list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 6px;
+}
+.list li {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 10px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: #fafbff;
+}
+.k {
+  color: var(--text);
+}
+.v {
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+
+@media (min-width: 780px) {
+  .people {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
