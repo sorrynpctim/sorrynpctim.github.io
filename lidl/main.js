@@ -210,7 +210,6 @@ function renderWizardStep() {
       })
     );
     el.wizardBody.appendChild(wrap);
-    setTimeout(() => wrap.querySelector("input")?.focus(), 0);
     return;
   }
 
@@ -227,7 +226,6 @@ function renderWizardStep() {
   grid.appendChild(makeSectionBlock(sec.key, "Backstock", "back"));
 
   el.wizardBody.appendChild(grid);
-  setTimeout(() => grid.querySelector("input")?.focus(), 0);
 }
 
 function makeSectionBlock(sectionKey, title, mode) {
@@ -315,21 +313,25 @@ function makeStepper({ label, value, min, onChange }) {
     onChange(vv);
   };
 
-  minus.addEventListener("click", () => setVal((Number(inp.value) || 0) - 1));
-  plus.addEventListener("click", () => setVal((Number(inp.value) || 0) + 1));
-  inp.addEventListener("input", () => setVal(inp.value));
-  inp.addEventListener("keydown", (e) => {
-    if (e.key === "ArrowUp") {
-      e.preventDefault();
-      setVal((Number(inp.value) || 0) + 1);
-    }
-    if (e.key === "ArrowDown") {
-      e.preventDefault();
-      setVal((Number(inp.value) || 0) - 1);
-    }
-    if (e.key === "Enter") {
-      e.preventDefault();
-      nextStep();
+  minus.addEventListener("click", () => {
+    setVal((Number(inp.value) || 0) - 1);
+  });
+
+  plus.addEventListener("click", () => {
+    setVal((Number(inp.value) || 0) + 1);
+  });
+
+  inp.addEventListener("input", () => {
+    setVal(inp.value);
+  });
+
+  inp.addEventListener("focus", () => {
+    inp.value = ""; // empty automatically
+  });
+
+  inp.addEventListener("blur", () => {
+    if (inp.value === "" || isNaN(Number(inp.value))) {
+      setVal(0);
     }
   });
 
@@ -382,7 +384,6 @@ function renderEditor() {
   }
 
   el.editorBody.appendChild(list);
-  setTimeout(() => el.editorBody.querySelector("input")?.focus(), 0);
 }
 
 /* ---------- Events ---------- */
