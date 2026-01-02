@@ -55,6 +55,17 @@ const SECTIONS = [
     splittable: false,
   },
 
+  // ✅ Limited Offer (UNTIMED / LOCKED PERSON RULE)
+  // Note: epMin is 0 so it does NOT affect balancing minutes.
+  {
+    key: "limitedOffer",
+    label: "Limited Offer",
+    type: "epdp",
+    epMin: 0,
+    dpMult: 0.5,
+    splittable: false,
+  },
+
   // Milk: unit = Cases, 15 min per case
   {
     key: "milk",
@@ -104,6 +115,7 @@ const SECTIONS = [
 
 const PRIORITY_A = ["fv", "chillConv", "bread", "flowers", "ambientBulks"];
 const MIX_KEY = "ambientMixes";
+const LIMITED_KEY = "limitedOffer";
 
 let state = defaultState();
 let stepIndex = 0;
@@ -503,6 +515,27 @@ function minutesFor(secKey, modeObj) {
   return ep * s.epMin + dp * s.epMin * s.dpMult;
 }
 
+/* ---------- Limited Offer helpers ---------- */
+function bundleHasWork(bundle) {
+  if (!bundle) return false;
+  if (bundle.type === "unit") {
+    return (
+      Number(bundle.back.units || 0) + Number(bundle.delivery.units || 0) > 0
+    );
+  }
+  return (
+    Number(bundle.back.ep || 0) +
+      Number(bundle.back.dp || 0) +
+      Number(bundle.delivery.ep || 0) +
+      Number(bundle.delivery.dp || 0) >
+    0
+  );
+}
+
+function getActiveIndexes(people) {
+  return people.map((_, i) => i).filter((i) => !people[i].locked);
+}
+
 /* ---------- Distribution (minutes-based) ---------- */
 function distributeByMinutes(inputs) {
   const workers = Math.max(1, inputs.workers || 1);
@@ -530,57 +563,87 @@ function distributeByMinutes(inputs) {
     };
   }
 
-  const totalMinutes = Object.values(bundles).reduce(
-    (sum, x) => sum + x.minutes,
-    0
-  );
-  const target = totalMinutes / workers;
-
-  const A = people[0];
-  const nonAIdx = Array.from(
-    { length: Math.max(0, workers - 1) },
-    (_, i) => i + 1
-  );
-
+  // assign whole section (even if "untimed" / minutes = 0, as long as there is work)
   const assignSectionWhole = (pi, secKey) => {
     const p = people[pi];
     const bundle = bundles[secKey];
-    if (!bundle || bundle.minutes <= 0) return;
+    if (!bundle || !bundleHasWork(bundle)) return;
 
-    if (bundle.back.minutes > 0)
-      pushLine(p, bundle, "back", bundle.back, bundle.back.minutes);
-    if (bundle.delivery.minutes > 0)
-      pushLine(p, bundle, "delivery", bundle.delivery, bundle.delivery.minutes);
+    // push lines even if minutes are 0 (Limited Offer)
+    pushLine(p, bundle, "back", bundle.back, bundle.back.minutes);
+    pushLine(p, bundle, "delivery", bundle.delivery, bundle.delivery.minutes);
 
-    p.totalMin += bundle.minutes;
+    // Only add to timed totals if not Limited Offer
+    if (secKey !== LIMITED_KEY) {
+      p.totalMin += bundle.minutes;
+    }
 
+    // mark consumed
     bundle.minutes = 0;
     bundle.back.minutes = 0;
     bundle.delivery.minutes = 0;
   };
 
-  // 1) Force A owns F&V if any (your rule: Person A always gets F&V backstock first)
-  if (bundles.fv?.minutes > 0) assignSectionWhole(0, "fv");
+  // ✅ Limited Offer rule: if present AND more than 1 worker, give to one person and lock them
+  if (workers > 1 && bundleHasWork(bundles[LIMITED_KEY])) {
+    // Prefer first non-A person (Person B). Deterministic.
+    const pick = workers > 1 ? 1 : 0;
+    assignSectionWhole(pick, LIMITED_KEY);
+    people[pick].locked = true;
+    people[pick].lockedReason = LIMITED_KEY;
+  } else if (workers === 1 && bundleHasWork(bundles[LIMITED_KEY])) {
+    // Single worker: still assign it, but cannot lock (they must do everything)
+    assignSectionWhole(0, LIMITED_KEY);
+    people[0].lockedReason = LIMITED_KEY; // show the note if you want
+  }
 
-  // 2) Give A additional priority sections if they fit under target
-  for (const k of PRIORITY_A) {
-    if (k === "fv") continue;
-    const b = bundles[k];
-    if (!b || b.minutes <= 0) continue;
-    if (A.totalMin >= target) break;
-    if (A.totalMin + b.minutes <= target) assignSectionWhole(0, k);
+  // Total minutes + target should ignore Limited Offer and ignore locked people
+  const totalMinutes = Object.values(bundles)
+    .filter((b) => b.key !== LIMITED_KEY)
+    .reduce((sum, x) => sum + x.minutes, 0);
+
+  const activeIdx = getActiveIndexes(people);
+  const activeCount = Math.max(1, activeIdx.length);
+  const target = totalMinutes / activeCount;
+
+  const A = people[0];
+
+  // Pools should exclude locked people
+  const nonAIdx = activeIdx.filter((i) => i !== 0);
+
+  // If A is locked (shouldn't happen with workers>1 due to pick=1), avoid assigning to A
+  const AIsActive = !A.locked;
+
+  // 1) Force A owns F&V if any (only if A is active)
+  if (AIsActive && bundles.fv && bundleHasWork(bundles.fv)) {
+    assignSectionWhole(0, "fv");
+  }
+
+  // 2) Give A additional priority sections if they fit under target (only if A is active)
+  if (AIsActive) {
+    for (const k of PRIORITY_A) {
+      if (k === "fv") continue;
+      if (k === LIMITED_KEY) continue;
+      const b = bundles[k];
+      if (!b || b.minutes <= 0) continue; // timed-only logic
+      if (A.totalMin >= target) break;
+      if (A.totalMin + b.minutes <= target) assignSectionWhole(0, k);
+    }
   }
 
   // 3) Non-food promo goes to one person (prefer non-A)
   if (bundles.nonFoodPromo?.minutes > 0) {
-    const pool = nonAIdx.length ? nonAIdx : [0];
-    assignSectionWhole(lowestMinAmongIndexes(people, pool), "nonFoodPromo");
+    const pool = nonAIdx.length ? nonAIdx : activeIdx;
+    if (pool.length)
+      assignSectionWhole(lowestMinAmongIndexes(people, pool), "nonFoodPromo");
   }
 
   // 4) Fresh split heuristic for non-A (keeps sections whole)
   const giveWholeLowestNonA = (key) => {
     if (bundles[key]?.minutes > 0) {
-      const pi = nonAIdx.length ? lowestMinAmongIndexes(people, nonAIdx) : 0;
+      const pool = nonAIdx.length ? nonAIdx : activeIdx;
+      if (!pool.length) return;
+      const pi = lowestMinAmongIndexes(people, pool);
       assignSectionWhole(pi, key);
     }
   };
@@ -603,24 +666,34 @@ function distributeByMinutes(inputs) {
       if (bundles[k]?.minutes > 0) assignSectionWhole(pi, k);
     }
   } else {
-    for (const k of ["milk", "chiller", "freezer", "mp"]) {
-      if (bundles[k]?.minutes > 0) assignSectionWhole(0, k);
+    // no non-A active people (e.g., only A active)
+    if (AIsActive) {
+      for (const k of ["milk", "chiller", "freezer", "mp"]) {
+        if (bundles[k]?.minutes > 0) assignSectionWhole(0, k);
+      }
     }
   }
 
-  // 5) Assign remaining sections (except mixes) to the person with the lowest minutes
+  // 5) Assign remaining sections (except mixes + limited offer) to the person with the lowest minutes
   for (const sec of SECTIONS) {
     if (sec.key === MIX_KEY) continue;
+    if (sec.key === LIMITED_KEY) continue;
+
     if (bundles[sec.key]?.minutes > 0) {
+      const activePool = getActiveIndexes(people);
       const pool =
-        workers > 1 && people[0].totalMin >= target
+        activePool.length > 1 &&
+        !people[0].locked &&
+        people[0].totalMin >= target
           ? nonAIdx
-          : Array.from({ length: workers }, (_, i) => i);
-      assignSectionWhole(lowestMinAmongIndexes(people, pool), sec.key);
+          : activePool;
+
+      if (pool.length)
+        assignSectionWhole(lowestMinAmongIndexes(people, pool), sec.key);
     }
   }
 
-  // 6) Split Ambient Mixes into single EP/DP units to balance totals
+  // 6) Split Ambient Mixes into single EP/DP units to balance totals (excluding locked people)
   if (bundles[MIX_KEY]) splitAmbientMixes(inputs, people, target);
 
   return { people, totalMinutes, target };
@@ -636,10 +709,19 @@ function splitAmbientMixes(inputs, people, target) {
   let delEP = inputs.sections.ambientMixes.delivery.ep;
   let delDP = inputs.sections.ambientMixes.delivery.dp;
 
-  const pickPool = () =>
-    people.length > 1 && people[0].totalMin >= target
-      ? people.slice(1)
-      : people;
+  const pickPool = () => {
+    const active = people.filter((p) => !p.locked);
+    if (!active.length) return [];
+
+    const A = people[0];
+    const AActive = !A.locked;
+    const AOver = AActive && A.totalMin >= target;
+
+    if (active.length > 1 && AOver) {
+      return active.filter((p) => p !== A);
+    }
+    return active;
+  };
 
   const giveUnit = (p, kind, isEP) => {
     const minutes = isEP ? unitEpMin : unitDpMin;
@@ -651,10 +733,13 @@ function splitAmbientMixes(inputs, people, target) {
   // Backstock first
   while (backEP > 0 || backDP > 0) {
     const pool = pickPool();
+    if (!pool.length) break;
+
     const p = pool.reduce(
       (best, cur) => (cur.totalMin < best.totalMin ? cur : best),
       pool[0]
     );
+
     if (backDP > 0) {
       giveUnit(p, "back", false);
       backDP--;
@@ -667,10 +752,13 @@ function splitAmbientMixes(inputs, people, target) {
   // Delivery
   while (delEP > 0 || delDP > 0) {
     const pool = pickPool();
+    if (!pool.length) break;
+
     const p = pool.reduce(
       (best, cur) => (cur.totalMin < best.totalMin ? cur : best),
       pool[0]
     );
+
     if (delDP > 0) {
       giveUnit(p, "delivery", false);
       delDP--;
@@ -688,10 +776,25 @@ function makePeople(n) {
     name: `Person ${letters[i] || i + 1}`,
     totalMin: 0,
     lines: [], // { sectionLabel, kind, type, unitLabel?, minutes, ep/dp or units }
+    locked: false,
+    lockedReason: null,
   }));
 }
 
 function pushLine(person, bundleMeta, kind, countsObj, minutes) {
+  // Don't add empty rows (keeps UI clean), BUT allow Limited Offer rows to show if counts exist.
+  const isLimited = bundleMeta.label === "Limited Offer";
+
+  let hasCounts = false;
+  if (bundleMeta.type === "unit") {
+    hasCounts = Number(countsObj.units || 0) > 0;
+  } else {
+    hasCounts = Number(countsObj.ep || 0) > 0 || Number(countsObj.dp || 0) > 0;
+  }
+
+  if (!hasCounts && !isLimited) return;
+  if (!hasCounts && isLimited) return; // no counts = nothing to show
+
   const line = {
     sectionLabel: bundleMeta.label,
     kind,
@@ -739,6 +842,20 @@ function lowestMinAmongIndexes(people, idxs) {
   return best;
 }
 
+/* ---------- Non-Food note helper ---------- */
+function shouldShowNonFoodHelpNote(person) {
+  const hasNonFood = person.lines.some(
+    (l) => l.sectionLabel === "Non-Food Promotion"
+  );
+  if (!hasNonFood) return false;
+
+  return person.lines.some(
+    (l) =>
+      l.sectionLabel !== "Non-Food Promotion" &&
+      (l.minutes > 0 || l.sectionLabel === "Limited Offer")
+  );
+}
+
 /* ---------- Render results ---------- */
 function renderResults(out) {
   const { people, totalMinutes, target } = out;
@@ -765,13 +882,38 @@ function renderResults(out) {
     `;
     card.appendChild(header);
 
-    const backLines = p.lines.filter((l) => l.kind === "back" && l.minutes > 0);
+    // Show limited offer lines even if minutes are 0
+    const backLines = p.lines.filter(
+      (l) =>
+        l.kind === "back" &&
+        (l.minutes > 0 || l.sectionLabel === "Limited Offer")
+    );
     const delLines = p.lines.filter(
-      (l) => l.kind === "delivery" && l.minutes > 0
+      (l) =>
+        l.kind === "delivery" &&
+        (l.minutes > 0 || l.sectionLabel === "Limited Offer")
     );
 
     card.appendChild(renderSubgroup("Backstock", backLines));
     card.appendChild(renderSubgroup("Delivery", delLines));
+
+    // ✅ Non-Food note: only if they got Non-Food AND any extra sections
+    if (shouldShowNonFoodHelpNote(p)) {
+      const note = document.createElement("div");
+      note.className = "note";
+      note.innerHTML =
+        "<strong>Non-Food note:</strong> Focus on Non-Food first. <br><br> The other sections listed can be helped by others. <br><br> Once you’re finished, come help where needed.";
+      card.appendChild(note);
+    }
+
+    // ✅ Note for Limited Offer person (locked or single-worker)
+    if (p.lockedReason === LIMITED_KEY) {
+      const note = document.createElement("div");
+      note.className = "note";
+      note.innerHTML =
+        "<strong>Limited Offer note:</strong> Focus on Limited Offer first. <br><br> If you finish early, come help where needed.";
+      card.appendChild(note);
+    }
 
     el.peopleCards.appendChild(card);
   }
@@ -806,9 +948,12 @@ function renderSubgroup(title, lines) {
           left += `<br><span class="v">EP ${l.ep} • DP ${l.dp}</span>`;
         }
 
-        li.innerHTML = `<span class="k">${left}</span><span class="v">${l.minutes.toFixed(
-          1
-        )}m</span>`;
+        const right =
+          l.sectionLabel === "Limited Offer"
+            ? "Untimed"
+            : `${l.minutes.toFixed(1)}m`;
+
+        li.innerHTML = `<span class="k">${left}</span><span class="v">${right}</span>`;
         ul.appendChild(li);
       });
   }
