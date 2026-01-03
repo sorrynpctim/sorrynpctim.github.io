@@ -72,7 +72,7 @@ const SECTIONS = [
     label: "Milk",
     type: "unit",
     unitLabel: "Cases",
-    unitMin: 15,
+    unitMin: 3.75,
     splittable: false,
   },
 
