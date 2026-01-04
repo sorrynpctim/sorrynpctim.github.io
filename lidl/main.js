@@ -19,9 +19,9 @@ const SECTIONS = [
     label: "Ambient Bulks",
     type: "epdp",
     epMin: 10,
-    dpMult: 1.0,
+    dpMult: 0.5,
     splittable: false,
-  }, // DP same as EP
+  },
   {
     key: "bread",
     label: "Bread & Cakes",
@@ -93,13 +93,13 @@ const SECTIONS = [
     splittable: false,
   },
 
-  // Freezer: unit = TKT, 35 min per TKT
+  // Freezer: unit = TKT, 30 min per TKT
   {
     key: "freezer",
     label: "Freezer (TKT)",
     type: "unit",
     unitLabel: "TKT",
-    unitMin: 35,
+    unitMin: 30,
     splittable: false,
   },
 
