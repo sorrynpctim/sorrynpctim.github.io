@@ -33,9 +33,7 @@ function updateTime() {
   ];
 
   document.querySelector(".clock").textContent = time;
-  document.querySelector(".date").textContent = `${weekdays[now.getDay()]}, ${
-    months[now.getMonth()]
-  } ${now.getDate()}`;
+  document.querySelector(".date").textContent = `${weekdays[now.getDay()]}, ${now.getDate()} ${months[now.getMonth()]}`;
 
   const statusClock = document.getElementById("status-clock");
   if (statusClock) statusClock.textContent = time;
