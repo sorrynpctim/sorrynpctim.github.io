@@ -14,11 +14,17 @@ body {
   font-family: "Helvetica Neue", sans-serif;
 }
 
+/* RESPONSIVE CONTAINER */
+
 .container {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
+  position: absolute;
+  width: 550px;
+  height: 1000px;
+  top: 53%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(var(--page-scale, 1));
+  transform-origin: center center;
+  overflow: visible;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -54,6 +60,8 @@ body {
   justify-content: flex-start;
   align-items: center;
 }
+
+/* STATUS BAR */
 
 .status-bar {
   position: absolute;
@@ -105,6 +113,8 @@ body {
   pointer-events: none;
 }
 
+/* LOCK SCREEN */
+
 .clock-bar {
   position: absolute;
   top: 25px;
@@ -146,6 +156,8 @@ body {
   font-weight: 300;
 }
 
+/* SLIDE TO UNLOCK */
+
 .slide-area {
   position: relative;
   bottom: 30px;
@@ -169,6 +181,7 @@ body {
   height: auto;
   cursor: pointer;
   z-index: 5;
+  touch-action: none;
   transition: transform 0.4s ease;
 }
 
@@ -197,6 +210,8 @@ body {
   display: block;
 }
 
+/* UNLOCK ANIMATIONS */
+
 .slide-up {
   transform: translateY(-150%);
 }
@@ -208,6 +223,8 @@ body {
 #time-block.slide-up {
   transform: translateY(-150%);
 }
+
+/* HOME SCREEN DOCK */
 
 .dock-wrapper {
   position: absolute;
@@ -260,19 +277,14 @@ body {
   height: 75px;
   margin-bottom: 3px;
   border-radius: 15px;
-}
-
-.dock-icon img {
-  width: 75px;
-  height: 75px;
-  margin-bottom: 3px;
-  border-radius: 15px;
   transition: filter 0.3s ease;
 }
 
 .dock-icon img:hover {
   filter: brightness(80%);
 }
+
+/* APP GRID */
 
 .app-grid {
   display: flex;
@@ -305,6 +317,8 @@ body {
 .app-icon img:hover {
   filter: brightness(75%);
 }
+
+/* APP ICON ANIMATIONS */
 
 #instagram-icon {
   transform: translate(-50px, -50px);
@@ -365,6 +379,8 @@ body {
   opacity: 1;
 }
 
+/* FADE ANIMATIONS */
+
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -400,6 +416,8 @@ body {
   opacity: 0;
 }
 
+/* CAMERA APP */
+
 #camera-view {
   display: none;
   position: absolute;
@@ -425,14 +443,10 @@ body {
   cursor: pointer;
 }
 
+/* HOME SCREEN CLOCK */
+
 #status-clock {
   position: absolute;
   font-size: 11px;
   left: 48%;
-}
-
-@media (max-width: 700px) {
-  #unlock-handle {
-    top: 1px;
-  }
 }
